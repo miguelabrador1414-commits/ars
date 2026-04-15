@@ -1,0 +1,48 @@
+name: Lint & Type Check
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install linting tools
+      run: |
+        pip install ruff mypy types-python-dateutil types-pyserial
+        
+    - name: Run ruff
+      run: |
+        pip install ruff
+        ruff check . --output-format=github || true
+        
+    - name: Run mypy
+      run: |
+        pip install mypy
+        mypy core ai db utils gui integrations --ignore-missing-imports || true
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Security audit
+      run: |
+        pip install bandit safety
+        bandit -r core ai db utils gui integrations -f github || true
+        safety check --json || true

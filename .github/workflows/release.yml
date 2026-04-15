@@ -1,0 +1,67 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install build dependencies
+      run: |
+        pip install build pyinstaller
+        
+    - name: Build package
+      run: |
+        python -m build
+        
+    - name: Build Linux executable
+      run: |
+        pyinstaller --onefile --name ARS ars.py
+        mkdir -p dist/ARS
+        cp dist/ARS dist/
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: releases
+        path: |
+          dist/*.whl
+          dist/ARS
+          
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: releases
+        path: releases/
+        
+    - name: Generate checksums
+      run: |
+        cd releases/
+        sha256sum * > SHA256SUMS
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: releases/*
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

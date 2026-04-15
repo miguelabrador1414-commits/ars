@@ -1,0 +1,129 @@
+{
+  "H616": {
+    "name": "Allwinner H616",
+    "soc_type": "H616",
+    "soc_id": "00001823",
+    "dram_size": "1GB-4GB",
+    "emmc_size": "8GB-128GB",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND (3.3V)",
+    "fel_button": "recovery button",
+    "notes": "Common in TV Boxes like X96Q, Tanix, etc.",
+    "recovery_steps": [
+      "1. Connect USB cable while holding FEL button",
+      "2. Verify with: sg sunxi-fel -c 'sunxi-fel ver'",
+      "3. Write firmware to RAM using chunks",
+      "4. Load appropriate bootloader",
+      "5. Flash to eMMC via bootloader"
+    ],
+    "known_issues": [
+      "SOC ID sometimes shows as unknown",
+      "USB connection may be unstable",
+      "Some units have encrypted firmware"
+    ]
+  },
+  "H313": {
+    "name": "Allwinner H313",
+    "soc_type": "H313",
+    "soc_id": "00001823",
+    "dram_size": "1GB-2GB",
+    "emmc_size": "8GB-32GB",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND",
+    "fel_button": "recovery button",
+    "notes": "Budget variant of H616, similar recovery process",
+    "recovery_steps": [
+      "1. Enter FEL mode",
+      "2. Write bootloader to RAM",
+      "3. Flash firmware via UART or FEL"
+    ],
+    "known_issues": [
+      "May show H616 ID in FEL mode",
+      "Limited RAM for firmware loading"
+    ]
+  },
+  "H618": {
+    "name": "Allwinner H618",
+    "soc_type": "H618",
+    "soc_id": "00001827",
+    "dram_size": "2GB-4GB",
+    "emmc_size": "16GB-128GB",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND (3.3V)",
+    "fel_button": "recovery button",
+    "notes": "Newer chip, better support in tools",
+    "recovery_steps": [
+      "1. Connect in FEL mode",
+      "2. Use sunxi-fel for direct eMMC access",
+      "3. Flash with standard procedures"
+    ],
+    "known_issues": [
+      "Relatively new, less documentation"
+    ]
+  },
+  "H3": {
+    "name": "Allwinner H3",
+    "soc_type": "H3",
+    "soc_id": "00001780",
+    "dram_size": "512MB-2GB",
+    "emmc_size": "8GB-64GB",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND (3.3V)",
+    "fel_button": "FEL/USB boot",
+    "notes": "Older quad-core, very common in Orange Pi, etc.",
+    "recovery_steps": [
+      "1. Enter FEL mode",
+      "2. Use sunxi-fel spl to load SPL",
+      "3. Flash via FEL protocol"
+    ],
+    "known_issues": [
+      "Good tool support",
+      "May need specific U-Boot version"
+    ]
+  },
+  "A64": {
+    "name": "Allwinner A64",
+    "soc_type": "A64",
+    "soc_id": "00001719",
+    "dram_size": "1GB-3GB",
+    "emmc_size": "eMMC 8GB-64GB",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND (3.3V)",
+    "fel_button": "FEL button",
+    "notes": "Common in Pine64, laptops, etc.",
+    "recovery_steps": [
+      "1. Boot into FEL mode",
+      "2. Load appropriate bootloader",
+      "3. Flash via FEL"
+    ],
+    "known_issues": [
+      "Requires 64-bit tools",
+      "eMMC boot requires special procedure"
+    ]
+  },
+  "R328": {
+    "name": "Allwinner R328",
+    "soc_type": "R328",
+    "soc_id": "00001821",
+    "dram_size": "256MB-512MB",
+    "emmc_size": "N/A (NAND)",
+    "usb_type": "USB 2.0 OTG",
+    "has_serial": true,
+    "serial_pins": "TX,RX,GND",
+    "fel_button": "FEL button",
+    "notes": "Dual-core, used in smart speakers",
+    "recovery_steps": [
+      "1. Enter FEL mode",
+      "2. Flash via USB"
+    ],
+    "known_issues": [
+      "Limited RAM",
+      "Different boot process"
+    ]
+  }
+}

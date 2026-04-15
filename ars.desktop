@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Allwinner Recovery Studio
+Comment=Professional tool for recovering Allwinner TV Boxes
+Exec=python3 /home/angel/Escritorio/ARS/ars.py
+Icon=computer
+Terminal=false
+Type=Application
+Categories=System;Utility;
+Keywords=allwinner;recovery;tvbox;fel;flash;emmc;
+StartupWMClass=ARS
